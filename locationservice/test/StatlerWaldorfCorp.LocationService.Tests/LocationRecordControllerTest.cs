@@ -5,6 +5,8 @@ using StatlerWaldorfCorp.LocationService.Persistence;
 using StatlerWaldorfCorp.LocationService.Models;
 using StatlerWaldorfCorp.LocationService;
 using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StatlerWaldorfCorp.LocationService.Tests
 {
@@ -23,6 +25,21 @@ namespace StatlerWaldorfCorp.LocationService.Tests
             MemberID = memberGuid, Timestamp =2 });
 
             Assert.Equal(2, repository.AllForMember(memberGuid).Count());
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyListForNewMembers()
+        {
+            ILocationRecordRepositary repository = new InMMemoryLocationRecordRepository();
+            LocationRecordController controller = new LocationRecordController(repository);
+
+            Guid memberGuid = Guid.NewGuid();
+
+            ICollection<LocationRecord> locationRecords = 
+                ((controller.GetLocationForMemeber(memberGuid) as ObjectResult).Value as ICollection<LocationRecord>);
+
+            Assert.Equal(0, locationRecords.Count());
+
         }
     }
 }

@@ -19,5 +19,12 @@ namespace StatlerWaldorfCorp.LocationService.Controllers
             locationRepository.Add(locationRecord);
             return this.Created($"/locations/{memberId}/{locationRecord.ID}", locationRecord);
         }
+
+        [HttpGet]
+        public IActionResult GetLocationForMemeber(Guid memberId)
+        {
+            var memberRecords = locationRepository.AllForMember(memberId);
+            return this.Ok(memberRecords);
+        }
     }
 }
