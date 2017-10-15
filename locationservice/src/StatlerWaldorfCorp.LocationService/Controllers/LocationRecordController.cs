@@ -26,5 +26,12 @@ namespace StatlerWaldorfCorp.LocationService.Controllers
             var memberRecords = locationRepository.AllForMember(memberId);
             return this.Ok(memberRecords);
         }
+
+        [HttpGet]
+        public IActionResult GetLatestForMember(Guid memberId)
+        {
+            var memberLatestRecord = locationRepository.GetLatestForMember(memberId);
+            return this.Ok(memberLatestRecord);
+        }
     }
 }

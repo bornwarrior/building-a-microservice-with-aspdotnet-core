@@ -49,7 +49,9 @@ namespace StatlerWaldorfCorp.LocationService.Persistence
 
             public LocationRecord GetLatestForMember(Guid memberId)
             {
-                throw new NotImplementedException();
+                var memberRecords = getMemberRecords(memberId);
+                LocationRecord lr = memberRecords.Values.LastOrDefault();
+                return lr;
             }
 
             public LocationRecord GetLocation(Guid memberId, Guid recordId)
